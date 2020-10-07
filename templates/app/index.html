@@ -1,0 +1,25 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %} home {% endblock %}
+
+{% block extrahead %}
+<meta name="description" content="とあるシステムエンジニアの海馬を抜き出した備忘録ブログ。プログラミングのことから仕事術、日記まで適当に残していきます。" />
+<meta name="twitter:card" content="summary" /> 
+<meta name="twitter:site" content="@rlog18" /> 
+<meta property="og:url" content="https://sehippocampus.work" /> 
+<meta property="og:title" content="システムエンジニアの海馬" /> 
+<meta property="og:description" content="とあるシステムエンジニアの海馬を抜き出した備忘録ブログ" /> 
+<meta property="og:image" content="https://sehippocampus.work/static/img/diary.png" /> 
+{% endblock %}
+
+{% block content %}
+<aside class="p-3 text-muted home">
+    <h1>Home</h1>
+    <p>このサイトはとあるSEの備忘録ブログです。</p>
+    <p>学習したことのまとめや、遭遇したエラーを記録していきます。</p>
+</aside>
+<section>
+    {% include 'app/articlelist_parts.html' %}
+</section>
+{% endblock %}

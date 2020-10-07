@@ -1,0 +1,19 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %} search article {% endblock %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block content %}
+
+<h1 class="bg-light m-3">
+    {% if query %}
+        {{ query }} Search List
+    {% else %}
+        All Articles
+    {% endif %}
+</h1>
+{% include 'app/articlelist_parts.html' %}
+{% endblock %}
