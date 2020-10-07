@@ -1,0 +1,50 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %} {{ object.title }} {% endblock %}
+
+{% block extrahead %}
+    {% include 'app/highlightjs_head.html' %}
+    <meta name="description" content="{{ object.description }}" />
+    <meta name="twitter:card" content="summary" /> 
+    <meta name="twitter:site" content="@rlog18" /> 
+    <meta property="og:url" content="https://sehippocampus.work{% url 'app:detail' object.id %}" /> 
+    <meta property="og:title" content="{{ object.title }}" /> 
+    <meta property="og:description" content="{{ object.description }}" /> 
+    <meta property="og:image" content="https://sehippocampus.work/static/img/diary.png" /> 
+    
+{% endblock %}
+
+{% block content %}
+
+<div class="detail bg-white p-3 break-word">
+    <h1 class="font-weight-bold bg-light">{{ object.title }}</h1>
+    <p class="text-muted">{{ object.published_at|date }}</p>
+    {% for tag in object.tags.all %}
+        <a href="{% url 'app:tag_article' tag.slug %}" class="badge badge-tag">
+            {{ tag.name }}
+        </a>
+    {% endfor %}
+    <p class="text-muted">{{ object.description|safe }}</p>
+    <hr>
+    {{ object.markdown_to_html|safe }}
+</div>
+
+<script>
+    $(function(){
+        $('#{{ object.category.slug }}').addClass('active');
+        $('table').each(function(i, elem){
+            $(elem).addClass('table');
+        });
+        $('thead').each(function(i, elem){
+            $(elem).addClass('thead-light');
+        });
+        items = document.querySelectorAll('a');
+        for (let a of items) {
+            if (a.href.match('#')) {
+                a.className = 'text-muted';
+            }
+        }
+    });
+</script>
+{% endblock %}

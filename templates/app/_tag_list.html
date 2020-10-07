@@ -1,0 +1,21 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %} home {% endblock %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block content %}
+
+{# デフォルトで受け取るのはobject_list #}
+<h1>タグ一覧</h1>
+{% for item in object_list %}
+    <div class="container bg-white border p-3 mt-3 mb-3">
+        <a href="{% url 'app:tag_article' item.slug %}">{{ item.name }} ({{ item.num_articles }})</a>
+    </div>
+{% empty %}
+    タグはありません。
+{% endfor %}
+
+{% endblock %}

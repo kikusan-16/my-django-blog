@@ -1,0 +1,13 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %} article list {% endblock %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block content %}
+
+<h1 class="bg-light m-3">All Articles</h1>
+{% include 'app/articlelist_parts.html' %}
+{% endblock %}

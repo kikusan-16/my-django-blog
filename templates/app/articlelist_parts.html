@@ -1,0 +1,31 @@
+{% for item in object_list %}
+    {% if user.is_authenticated or item.is_public %}
+        <a href="{% url 'app:detail' item.id %} " class="hover-article d-block p-3 m-3 break-word li-shadow bd-top-black text-decoration-none">
+            {% if not item.is_public %}[下書き] {% endif %}
+            <div class="row">
+                <div class="col">
+                    <object><a href="{% url 'app:category_article' item.category.slug %}" class="text-muted">
+                        {{ item.category }}
+                    </a></object>
+                </div>
+                <div class="col">
+                    <span class="small text-muted d-flex justify-content-end ">
+                        {{ item.published_at|date }}
+                    </span>
+                </div>
+            </div>
+            <p>
+                {% for tag in item.tags.all %}
+                    <object><a href="{% url 'app:tag_article' tag.slug %}" class="badge badge-tag">
+                        {{ tag.name }}
+                    </a></object>
+                {% endfor %}
+            </p>
+            <p class="lead font-weight-bold text-info">{{ item.title }}</p>
+            <p class="text-muted">{{ item.description|safe }}</p>
+        </a>
+    {% endif %}
+{% empty %}
+    まだ投稿はありません。
+{% endfor %}
+<aside class="ml-3">{% include 'app/pagination.html' %}</aside>

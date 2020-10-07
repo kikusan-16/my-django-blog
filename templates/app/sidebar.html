@@ -1,0 +1,61 @@
+{% load static %}
+
+<div class="m-3 break-word">
+    <div class="card-header bg-light lead font-weight-bold">
+        <a href="{% url 'app:article_list' %}" class="text-dark">最近の記事</a>
+    </div>
+    <div class="card-body bg-light">
+    {% for article in articles %}
+        {% if user.is_authenticated or article.is_public %}
+        <ul class="list-group">
+            <a href="{% url 'app:detail' article.id %}" class="d-block list-group-item m-2 bd-top-black li-shadow hover-article text-decoration-none">
+                {% if not article.is_public %}[下書き] {% endif %}
+                <p class="text-info">{{ article.title }}</p>
+                {% for tag in article.tags.all %}
+                    <object><a href="{% url 'app:tag_article' tag.slug %}" class="badge badge-tag">
+                        {{ tag.name }}
+                    </a></object>
+                {% endfor %}
+                </a>
+        </ul>
+        {% endif %}
+    {% empty %}
+        まだ投稿はありません。
+    {% endfor %}
+    </div>
+
+    <div class="card-header bg-light lead font-weight-bold">
+        タグ一覧
+    </div>
+    <div class="card-body bg-light">
+        {% for tag in tags|dictsortreversed:"num_articles" %}
+            <a href="{% url 'app:tag_article' tag.slug %}" class="badge badge-tag">
+                {{ tag.name }}
+                <span class="badge badge-light badge-pill">{{ tag.num_articles }}</span>
+            </a>
+        {% endfor %}
+    </div>
+
+    <div class="card-header bg-light lead font-weight-bold">
+        プロフィール
+    </div>
+        <div class="card-body">
+            <div class="card-text bg-white border rounded p-3">
+                <div class="text-center">
+                    <div class="d-inline-block bg-shirohanada rounded-circle w-50 mb-3">
+                        <img src="{% static 'img/favicon.svg' %}" class="w-100" alt="icon">
+                    </div>
+                    <p class="lead font-weight-bold">菊さん</p>
+                </div>
+                <p class="text-muted">
+                    独立系SIerで働くSEです。<br>
+                    実務経験 → Java / VB.NET / python / JavaScript / 申し訳程度のクラウドインフラ<br>
+                    システムアーキテクト目指して勉強中。
+                </p>
+                <div class="text-center">
+                <a class="pr-3 text-muted" href="https://github.com/kikusan-16"><img src="{% static 'img/GitHub.png' %}" alt="github" width="32px" height="32px" title="github"></a>
+                </div>
+            </div>
+        </div>
+    
+</div>

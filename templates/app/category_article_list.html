@@ -1,0 +1,16 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %} category article list {% endblock %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block content %}
+
+<h1 class="bg-light m-3">{{ category.name }} List</h1>
+{% include 'app/articlelist_parts.html' %}
+<script>
+    $("#{{ category.slug }}").addClass("active");
+</script>
+{% endblock %}
