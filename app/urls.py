@@ -22,9 +22,9 @@ urlpatterns = [
     path('', views.IndexView.as_view()),
     path('articles/', views.ArticleListView.as_view(), name='article_list'),
     path('articles/<int:pk>/', views.ArticleDetailView.as_view(), name='detail'),
-    #path('categories/', views.CategoryListView.as_view()),
     path('categories/<str:category_slug>/', views.CategoryArticleView.as_view(), name='category_article'),
-    #path('tags/', views.TagListView.as_view()),
     path('tags/<str:tag_slug>/', views.TagArticleView.as_view(), name='tag_article'),
     path('search/', views.SearchArticleView.as_view(), name='search_article'),
+    #path('categories/', views.CategoryListView.as_view()),
+    #path('tags/', views.TagListView.as_view()),
 ]

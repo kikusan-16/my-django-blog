@@ -5,7 +5,7 @@ import markdown
 import os
 
 class Category(models.Model):
-
+    """カテゴリモデル"""
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -14,6 +14,7 @@ class Category(models.Model):
         return self.name
 
 class Tag(models.Model):
+    """タグモデル"""
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True)
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -22,7 +23,7 @@ class Tag(models.Model):
         return self.name
 
 class Article(models.Model):
-
+    """記事モデル"""
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     tags = models.ManyToManyField(Tag, blank=True)
     title = models.CharField(max_length=255)
@@ -34,8 +35,10 @@ class Article(models.Model):
     is_public = models.BooleanField(default=False)
 
     def markdown_to_html(self):
-        """Markdown を HTML に変換して出力
-        さらに拡張機能を使用して目次を自動生成する"""
+        """
+        Markdown を HTML に変換して出力
+        さらに拡張機能を使用して目次を自動生成する
+        """
         md = markdown.Markdown(
             extensions=['extra', 'admonition', 'sane_lists', 'toc'])
         html = md.convert(self.content)
@@ -53,6 +56,7 @@ class Article(models.Model):
         return self.title
 
 class Media(models.Model):
+    """メディアモデル"""
     name = models.CharField(max_length=200)
     image = models.ImageField(upload_to='uploads/%Y/%m/%d/', verbose_name='添付ファイル')
 
