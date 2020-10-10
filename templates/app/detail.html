@@ -1,4 +1,4 @@
-{% extends 'app/base.html' %}
+{% extends 'app/body.html' %}
 {% load static %}
 
 {% block title %} {{ object.title }} {% endblock %}
@@ -16,9 +16,11 @@
 {% endblock %}
 
 {% block content %}
-
 <div class="detail bg-white p-3 break-word">
     <h1 class="font-weight-bold bg-light">{{ object.title }}</h1>
+    {% if user.is_superuser %}
+        <a href="{% url 'app:update' object.id %}">編集</a>
+    {% endif %}
     <p class="text-muted">{{ object.published_at|date }}</p>
     {% for tag in object.tags.all %}
         <a href="{% url 'app:tag_article' tag.slug %}" class="badge badge-tag">

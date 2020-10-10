@@ -1,4 +1,4 @@
-{% extends 'app/base.html' %}
+{% extends 'app/body.html' %}
 {% load static %}
 
 {% block title %} home {% endblock %}
@@ -18,6 +18,9 @@
     <h1>Home</h1>
     <p>このサイトはとあるSEの備忘録ブログです。</p>
     <p>学習したことのまとめや、遭遇したエラーを記録していきます。</p>
+    {% if user.is_superuser %}
+        <a href="{% url 'app:create' %}">新規作成</a>
+    {% endif %}
 </aside>
 <section>
     {% include 'app/articlelist_parts.html' %}

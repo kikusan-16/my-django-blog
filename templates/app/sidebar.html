@@ -6,7 +6,7 @@
     </div>
     <div class="card-body bg-light">
     {% for article in articles %}
-        {% if user.is_authenticated or article.is_public %}
+        {% if user.is_superuser or article.is_public %}
         <ul class="list-group">
             <a href="{% url 'app:detail' article.id %}" class="d-block list-group-item m-2 bd-top-black li-shadow hover-article text-decoration-none">
                 {% if not article.is_public %}[下書き] {% endif %}
@@ -39,23 +39,22 @@
     <div class="card-header bg-light lead font-weight-bold">
         プロフィール
     </div>
-        <div class="card-body">
-            <div class="card-text bg-white border rounded p-3">
-                <div class="text-center">
-                    <div class="d-inline-block bg-shirohanada rounded-circle w-50 mb-3">
-                        <img src="{% static 'img/favicon.svg' %}" class="w-100" alt="icon">
-                    </div>
-                    <p class="lead font-weight-bold">菊さん</p>
+    <div class="card-body">
+        <div class="card-text bg-white border rounded p-3">
+            <div class="text-center">
+                <div class="d-inline-block bg-shirohanada rounded-circle w-50 mb-3">
+                    <img src="{% static 'img/favicon.svg' %}" class="w-100" alt="icon">
                 </div>
-                <p class="text-muted">
-                    独立系SIerで働くSEです。<br>
-                    実務経験 → Java / VB.NET / python / JavaScript / 申し訳程度のクラウドインフラ<br>
-                    システムアーキテクト目指して勉強中。
-                </p>
-                <div class="text-center">
-                <a class="pr-3 text-muted" href="https://github.com/kikusan-16"><img src="{% static 'img/GitHub.png' %}" alt="github" width="32px" height="32px" title="github"></a>
-                </div>
+                <p class="lead font-weight-bold">菊さん</p>
+            </div>
+            <p class="text-muted">
+                ソフトハウスで働くSEです。<br>
+                経験 → Java / VB.NET / python / JavaScript / 申し訳程度のクラウドインフラ<br>
+                システムアーキテクト目指して勉強中。
+            </p>
+            <div class="text-center">
+            <a class="pr-3 text-muted" href="https://github.com/kikusan-16"><img src="{% static 'img/GitHub.png' %}" alt="github" width="32px" height="32px" title="github"></a>
             </div>
         </div>
-    
+    </div>
 </div>
