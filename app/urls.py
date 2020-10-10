@@ -19,12 +19,15 @@ from django.views.generic import TemplateView
 
 app_name = 'app'
 urlpatterns = [
-    path('', views.IndexView.as_view()),
+    path('', views.IndexView.as_view(), name='index'),
     path('articles/', views.ArticleListView.as_view(), name='article_list'),
     path('articles/<int:pk>/', views.ArticleDetailView.as_view(), name='detail'),
+    path('articles/create/', views.ArticleCreateView.as_view(), name='create'),
+    path('articles/update/<int:pk>/', views.ArticleUpdateView.as_view(), name='update'),
     path('categories/<str:category_slug>/', views.CategoryArticleView.as_view(), name='category_article'),
     path('tags/<str:tag_slug>/', views.TagArticleView.as_view(), name='tag_article'),
     path('search/', views.SearchArticleView.as_view(), name='search_article'),
+    path('markdowntohtml/', views.MarkdownToHtmlView.as_view(), name='markdown_to_html'),
     #path('categories/', views.CategoryListView.as_view()),
     #path('tags/', views.TagListView.as_view()),
 ]

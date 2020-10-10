@@ -1,5 +1,5 @@
 {% for item in object_list %}
-    {% if user.is_authenticated or item.is_public %}
+    {% if user.is_superuser or item.is_public %}
         <a href="{% url 'app:detail' item.id %} " class="hover-article d-block p-3 m-3 break-word li-shadow bd-top-black text-decoration-none">
             {% if not item.is_public %}[下書き] {% endif %}
             <div class="row">

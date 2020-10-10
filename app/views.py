@@ -1,7 +1,11 @@
+import markdown
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import render
 from django.db.models import Count, Q
-from django.http import Http404
-from django.views.generic import TemplateView
+from django.http import Http404, HttpResponse
+from django.urls import reverse_lazy
+from django.views import View
+from django.views.generic import TemplateView, UpdateView, CreateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404
@@ -26,9 +30,33 @@ class ArticleDetailView(DetailView):
 
     def get_object(self, queryset=None):
         obj = super().get_object(queryset=queryset)
-        if not obj.is_public and not self.request.user.is_authenticated:
+        if not obj.is_public and not self.request.user.is_superuser:
             raise Http404
         return obj
+
+
+class ArticleCreateView(UserPassesTestMixin, CreateView):
+    template_name = 'app/edit.html'
+    model = Article
+    fields = ['category', 'tags', 'title', 'content', 'description', 'published_at', 'is_public']
+
+    def test_func(self):
+        return self.request.user.is_superuser
+
+    def get_success_url(self):
+        return reverse_lazy('app:detail', kwargs={'pk': self.object.pk})
+
+
+class ArticleUpdateView(UserPassesTestMixin, UpdateView):
+    template_name = 'app/edit.html'
+    model = Article
+    fields = ['category', 'tags', 'title', 'content', 'description', 'published_at', 'is_public']
+
+    def test_func(self):
+        return self.request.user.is_superuser
+
+    def get_success_url(self):
+        return reverse_lazy('app:detail', kwargs={'pk': self.object.pk})
 
 
 class ArticleListView(ListView):
@@ -82,6 +110,7 @@ class TagArticleView(ListView):
         context['tag'] = self.tag
         return context
 
+
 class SearchArticleView(ListView):
     model = Article
     template_name = 'app/search_article.html'
@@ -106,3 +135,23 @@ class SearchArticleView(ListView):
         query = self.request.GET.get('q')
         context['query'] = query
         return context
+
+
+class MarkdownToHtmlView(View):
+
+    def get(self, request, *args, **kwargs):
+        data = request.GET.get('d')
+        if not data:
+            raise Http404
+        else:
+            return HttpResponse(self.markdown_to_html(data))
+
+    def markdown_to_html(self, data):
+        """
+        Markdown を HTML に変換して出力
+        さらに拡張機能を使用して目次を自動生成する
+        """
+        md = markdown.Markdown(
+            extensions=['extra', 'admonition', 'sane_lists', 'toc'])
+        html = md.convert(data)
+        return html

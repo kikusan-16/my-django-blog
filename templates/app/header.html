@@ -1,6 +1,6 @@
 {% load static %}
 <nav class="navbar navbar-expand-md navbar-dark bg-info rains">
-    <a class="navbar-brand" href="/">システムエンジニアの海馬</a>
+    <a class="navbar-brand" href="{% url 'app:index' %}">システムエンジニアの海馬</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -8,16 +8,16 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a id="documentation" class="nav-link" href="/categories/documentation">Documentation</a>
+                <a id="documentation" class="nav-link" href="{% url 'app:category_article' 'documentation' %}">Documentation</a>
             </li>
             <li class="nav-item">
-                <a id="topic" class="nav-link" href="/categories/topic">Topic</a>
+                <a id="topic" class="nav-link" href="{% url 'app:category_article' 'topic' %}">Topic</a>
             </li>
             <li class="nav-item">
-                <a id="errorlog" class="nav-link" href="/categories/errorlog">ErrorLog</a>
+                <a id="errorlog" class="nav-link" href="{% url 'app:category_article' 'errorlog' %}">ErrorLog</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0" action="/search" method="GET">
+        <form class="form-inline my-2 my-lg-0" action="{% url 'app:search_article' %}" method="GET">
             <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" value="{{ request.GET.q }}" aria-label="Search">
             <button class="btn btn-outline-success bg-light my-2 my-sm-0" type="submit">Search</button>
         </form>

@@ -18,38 +18,7 @@
 
 </head>
 <body class="bg-light">
-<header class="page-header sticky-top">
-{% block header %}
-    {% include 'app/header.html' %}
-{% endblock %}
-</header>
-
-<div class="content row no-gutters">
-    <main class="page-content col-md-8 container bg-white">
-        {% block content %}
-        {% endblock %}
-    </main>
-    <aside class="sidebar col-md-4 container bg-light">
-        {% include 'app/sidebar.html' %}
-    </aside>
-</div>
-<footer class="text-center m-3">
-    <small class="text-muted">© システムエンジニアの海馬</small>
-</footer>
-
-<script>
-    $('.hover-article').hover(
-    function() {
-        $(this).css("background-color", "#f8f9fa");
-        $(this).removeClass("bd-top-black");
-        $(this).addClass("bd-top-info");
-    },
-    function() {
-        $(this).css("background-color", "");
-        $(this).removeClass("bd-top-info");
-        $(this).addClass("bd-top-black");
-    }
-);
-</script>
+{% block body %}
+{% endblock%}
 </body>
 </html>
