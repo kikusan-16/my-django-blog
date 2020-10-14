@@ -2,10 +2,12 @@ version: 2.1
 
 jobs:
   build-and-test:
+    branches:
+      only:
+          - main
     # working_directory: ~/
     docker:
         - image: circleci/python:3.7.5
-    
     steps:
       - checkout
       - restore_cache:
