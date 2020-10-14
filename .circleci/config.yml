@@ -2,28 +2,28 @@ version: 2.1
 
 jobs:
   build-and-test:
-    branches:
-      only:
-          - main
     # working_directory: ~/
     docker:
-        - image: circleci/python:3.7.5
+      - image: circleci/python:3.7.5
     steps:
       - checkout
       - restore_cache:
-          keys:
-              - pip -- {{ checksum "requirements.txt"}}
+        keys:
+          - pip -- {{ checksum "requirements.txt"}}
       - run:
-          name: Install dependencies
-          command: pip install --user -r requirements.txt
+        name: Install dependencies
+        command: pip install --user -r requirements.txt
       - save_cache:
-          key: pip -- {{ checksum "requirements.txt"}}
-          paths: /home/circleci/.local/bin/
+        key: pip -- {{ checksum "requirements.txt"}}
+        paths: /home/circleci/.local/bin/
       - run:
-          command: python manage.py test
-          name: Test
+        command: python manage.py test
+        name: Test
 
 workflows:
   main:
     jobs:
       - build-and-test
+        filters:
+          branches:
+            only: main
