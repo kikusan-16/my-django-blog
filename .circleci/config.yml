@@ -1,16 +1,19 @@
 version: 2.1
 
-orbs:
-  python: circleci/python@0.2.1
-
 jobs:
   build-and-test:
-    executor: python/default
+    # working_directory: ~/
+    docker:
+        - image: circleci/python:3.7.5
+    
     steps:
       - checkout
-      - python/load-cache
-      - python/install-deps
-      - python/save-cache
+      - restore_cache:
+          keys:
+              - pip -- {{ checksum "requirements.txt"}}
+      - save_cache:
+          key: pip -- {{ checksum "requirements.txt"}}
+          paths: /home/circleci/.local/bin/
       - run:
           command: ./manage.py test
           name: Test
