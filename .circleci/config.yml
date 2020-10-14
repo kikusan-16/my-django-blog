@@ -15,7 +15,7 @@ jobs:
           key: pip -- {{ checksum "requirements.txt"}}
           paths: /home/circleci/.local/bin/
       - run:
-          command: ./manage.py test
+          command: python manage.py test
           name: Test
 
 workflows:
