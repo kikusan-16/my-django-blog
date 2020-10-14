@@ -13,6 +13,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class Tag(models.Model):
     """タグモデル"""
     name = models.CharField(max_length=255)
@@ -21,6 +22,7 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Article(models.Model):
     """記事モデル"""
@@ -54,6 +56,7 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class Media(models.Model):
     """メディアモデル"""
