@@ -25,9 +25,8 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys
-      # - run: ssh ${USER_NAME}@${HOST_NAME} 'cd my-django && git pull origin main && sudo systemctl restart gunicorn.socket'
-      - run: ssh -p ${SSH_PORT} ${USER_NAME}@${HOST_NAME} 'pwd > ~/pwd'
-
+      - run: ssh ${USER_NAME}@${HOST_NAME} 'cd my-django && git pull origin main && sudo systemctl restart gunicorn.socket'
+      
 workflows:
   main:
     jobs:
