@@ -3,3 +3,4 @@ django-filter==2.4.0
 django-widget-tweaks==1.4.8
 djangorestframework==3.11.0
 Pillow==7.1.2
+markdown
