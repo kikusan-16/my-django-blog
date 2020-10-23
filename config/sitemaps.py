@@ -3,6 +3,7 @@ from django.urls import reverse
 
 from app.models import Article, Category, Tag
 
+
 class BlogArticleSitemap(Sitemap):
     changefreq = "never"
     priority = 0.8
@@ -25,7 +26,7 @@ class BlogCategorySitemap(Sitemap):
         return Category.objects.all()
 
     def location(self, obj):
-        return reverse('app:category_article', args=[obj.category_slug])
+        return reverse('app:category_article', args=[obj.slug])
 
 
 class BlogTagSitemap(Sitemap):
@@ -36,7 +37,7 @@ class BlogTagSitemap(Sitemap):
         return Tag.objects.all()
 
     def location(self, obj):
-        return reverse('app:tag_article', args=[obj.tag_slug])
+        return reverse('app:tag_article', args=[obj.slug])
 
 
 class StaticSitemap(Sitemap):
